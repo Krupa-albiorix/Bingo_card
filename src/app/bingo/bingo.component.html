@@ -1,0 +1,14 @@
+<div class="view-port">
+    <div class="container">
+        <div class="title">Bingo Card</div><br>
+        <div class="content">
+
+            <table>
+                <tr *ngFor="let array of rendonArray; let i = index">
+                    <td *ngFor="let arr of array; let j = index">{{arr}}</td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+</div>
