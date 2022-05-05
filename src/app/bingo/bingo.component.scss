@@ -13,8 +13,8 @@
 }
 
 .container {
-    max-width: 1500px;
-    width: 100%;
+    width: 50%;
+    height: 500px;
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 5px;
@@ -22,7 +22,7 @@
 }
 
 .container .title {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 50px;
     text-align: center;
     position: relative;
@@ -30,12 +30,28 @@
 }
 
 table {
-    margin-left: 320px;
-    width: 50%;
-    border: 0.5px solid black;
+    margin-left: 70px;
+    width: 80%;
+    height: 280px;
+    border: 1px solid black;
 }
 
 tr, td {
-    border: 0.5px solid black;
+    border: 1px solid black;
     text-align: center;
+}
+
+button {
+    margin-top: 20px;
+    margin-left: 190px;
+    width: auto;
+}
+
+.example-button-row {
+    display: flex;
+    max-width: 1500px;
+    width: 100%;
+    padding-top: 10px;
+    border-radius: 5px;
+    display: table-cell;
 }

@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class BingoComponent implements OnInit {
 
   public i : number | undefined;
-  public rendonArray: any[] = [];
+  rendomNumber!: any;
+  public rendomArray: any[] = [];
   constructor() { }
 
   ngOnInit(): void {
@@ -17,16 +18,37 @@ export class BingoComponent implements OnInit {
 
   array() {
     for (var i = 0 ; i < 5 ; i++) {
-      this.rendonArray[i] = [];
+      this.rendomArray[i] = [];
       for ( var j = 0 ; j < 5 ; j++ ) {
-        this.rendonArray[i][j] = this.getRandomInt();
+        this.rendomArray[i][j] = this.getRandomNumber();
       }
     }
-    console.log(this.rendonArray);
+    console.log(this.rendomArray);
   }
 
-  getRandomInt() {
-    return Math.floor(Math.random() * 101);
+  start() {
+    this.rendomNumber = setInterval(() => {
+        this.array();
+      }, 300);
+    console.log(this.rendomNumber);
+
+    this.rendomArray.filter((res,indexI)=> {
+      if(res.includes(this.rendomNumber)) 
+      {
+        console.log(res);
+        console.log(indexI)
+        console.log(res.indexOf(this.rendomNumber));  
+        console.log(this.rendomArray[indexI][res.indexOf(this.rendomNumber)]);
+      }
+    })
   }
+
+  refresh() {
+    this.array();
+  }
+
+  getRandomNumber() {
+    return Math.floor(Math.random() * 99);
+  };
 
 }

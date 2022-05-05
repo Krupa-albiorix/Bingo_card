@@ -1,14 +1,19 @@
 <div class="view-port">
     <div class="container">
-        <div class="title">Bingo Card</div><br>
-        <div class="content">
+        <div class="title">Bingo Card</div>
+
+            {{rendomNumber}}
 
             <table>
-                <tr *ngFor="let array of rendonArray; let i = index">
+                <tr *ngFor="let array of rendomArray; let i = index">
                     <td *ngFor="let arr of array; let j = index">{{arr}}</td>
                 </tr>
             </table>
+
+            <div class="example-button-row">
+                <button mat-raised-button type="submit" (click)="start()" color="primary">Start</button>&nbsp;
+                <button mat-raised-button color="primary" (click)="refresh()">Refresh</button>
+            </div>
             
-        </div>
     </div>
 </div>
