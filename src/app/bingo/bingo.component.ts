@@ -9,7 +9,9 @@ export class BingoComponent implements OnInit {
 
   public i : number | undefined;
   rendomNumber!: any;
+  data! : any;
   public rendomArray: any[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -27,24 +29,27 @@ export class BingoComponent implements OnInit {
   }
 
   start() {
-    this.rendomNumber = setInterval(() => {
-        this.array();
+    this.data = setInterval(() => {this.rendomNumber = this.getRandomNumber();
+      this.rendomArray.filter((res,indexI)=> {
+        if (res.includes(this.rendomNumber)) 
+        {
+          res.isSelected = true;
+          console.log(res.isSelected);
+          console.log(res);
+          console.log(indexI)
+          console.log(res.indexOf(this.rendomNumber));  
+          console.log(this.rendomArray[indexI][res.indexOf(this.rendomNumber)]);
+        }
+      })
       }, 300);
-    console.log(this.rendomNumber);
-
-    this.rendomArray.filter((res,indexI)=> {
-      if(res.includes(this.rendomNumber)) 
-      {
-        console.log(res);
-        console.log(indexI)
-        console.log(res.indexOf(this.rendomNumber));  
-        console.log(this.rendomArray[indexI][res.indexOf(this.rendomNumber)]);
-      }
-    })
+      console.log(this.data);
   }
 
   refresh() {
     this.array();
+    if (this.data) {
+      clearInterval(this.data);
+    }
   }
 
   getRandomNumber() {

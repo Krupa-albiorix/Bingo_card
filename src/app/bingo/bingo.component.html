@@ -2,17 +2,18 @@
     <div class="container">
         <div class="title">Bingo Card</div>
 
-            {{rendomNumber}}
+            <div *ngIf="refresh">{{rendomNumber}}</div>
 
             <table>
                 <tr *ngFor="let array of rendomArray; let i = index">
-                    <td *ngFor="let arr of array; let j = index">{{arr}}</td>
+                    <td *ngFor="let arr of array; let j = index" [ngClass]="arr === rendomNumber? 'bg-success' : 'bg-white'">{{arr}}
+                    </td>
                 </tr>
             </table>
 
             <div class="example-button-row">
-                <button mat-raised-button type="submit" (click)="start()" color="primary">Start</button>&nbsp;
-                <button mat-raised-button color="primary" (click)="refresh()">Refresh</button>
+                <button mat-raised-button (click)="start()" color="primary">Start</button>&nbsp;
+                <button mat-raised-button (click)="refresh()" color="primary">Refresh</button>
             </div>
             
     </div>
