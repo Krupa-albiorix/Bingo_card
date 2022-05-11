@@ -6,7 +6,8 @@
 
             <table>
                 <tr *ngFor="let array of rendomArray; let i = index">
-                    <td *ngFor="let arr of array; let j = index" [ngClass]="arr === rendomNumber? 'bg-success' : 'bg-white'">{{arr}}
+                    <td *ngFor="let arr of array; let j = index" [ngClass]="matched.includes(arr.number)? 'bg-success' : 'bg-white'">
+                        {{arr.number}}
                     </td>
                 </tr>
             </table>

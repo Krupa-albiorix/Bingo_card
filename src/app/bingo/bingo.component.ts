@@ -10,6 +10,7 @@ export class BingoComponent implements OnInit {
   public i : number | undefined;
   rendomNumber!: any;
   data! : any;
+  public matched: any[] = [];
   public rendomArray: any[] = [];
 
   constructor() { }
@@ -19,10 +20,14 @@ export class BingoComponent implements OnInit {
   }
 
   array() {
+    
     for (var i = 0 ; i < 5 ; i++) {
       this.rendomArray[i] = [];
       for ( var j = 0 ; j < 5 ; j++ ) {
-        this.rendomArray[i][j] = this.getRandomNumber();
+        this.rendomArray[i][j] = {
+          number: this.getRandomNumber(),
+          isSelected: false
+        };
       }
     }
     console.log(this.rendomArray);
@@ -30,23 +35,24 @@ export class BingoComponent implements OnInit {
 
   start() {
     this.data = setInterval(() => {this.rendomNumber = this.getRandomNumber();
-      this.rendomArray.filter((res,indexI)=> {
-        if (res.includes(this.rendomNumber)) 
+      this.rendomArray.map(((res,indexI)=> {
+        if (res.find( (res: { number: any; }) => res.number === this.rendomNumber)) 
         {
-          res.isSelected = true;
-          console.log(res.isSelected);
+          res[indexI].isSelected = true;
           console.log(res);
           console.log(indexI)
           console.log(res.indexOf(this.rendomNumber));  
-          console.log(this.rendomArray[indexI][res.indexOf(this.rendomNumber)]);
+          this.matched = [...this.matched, this.rendomNumber];
+          console.log(this.matched);
         }
-      })
+      }))
       }, 300);
       console.log(this.data);
   }
 
   refresh() {
     this.array();
+    this.matched = [];
     if (this.data) {
       clearInterval(this.data);
     }
