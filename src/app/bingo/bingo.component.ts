@@ -10,7 +10,6 @@ export class BingoComponent implements OnInit {
   public i: number | undefined;
   rendomNumber!: any;
   data!: any;
-  public matched: any[] = [];
   public rendomArray: any[] = [];
 
   constructor() { }
@@ -48,11 +47,11 @@ export class BingoComponent implements OnInit {
           }
         }))
       } else {
-        console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
+        console.log('BINGO');
         clearInterval(interVal)
         this.array();
       }
-    }, 10);
+    }, 1000);
   }
 
   refresh() {
