@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BingoComponent implements OnInit {
 
-  public i : number | undefined;
+  public i: number | undefined;
   rendomNumber!: any;
-  data! : any;
+  data!: any;
   public matched: any[] = [];
   public rendomArray: any[] = [];
 
@@ -20,39 +20,43 @@ export class BingoComponent implements OnInit {
   }
 
   array() {
-    
-    for (var i = 0 ; i < 5 ; i++) {
+    for (var i = 0; i < 5; i++) {
       this.rendomArray[i] = [];
-      for ( var j = 0 ; j < 5 ; j++ ) {
+      for (var j = 0; j < 5; j++) {
         this.rendomArray[i][j] = {
           number: this.getRandomNumber(),
           isSelected: false
         };
       }
     }
-    console.log(this.rendomArray);
   }
 
   start() {
-    this.data = setInterval(() => {this.rendomNumber = this.getRandomNumber();
-      this.rendomArray.map(((res,indexI)=> {
-        if (res.find( (res: { number: any; }) => res.number === this.rendomNumber)) 
-        {
-          res[indexI].isSelected = true;
-          console.log(res);
-          console.log(indexI)
-          console.log(res.indexOf(this.rendomNumber));  
-          this.matched = [...this.matched, this.rendomNumber];
-          console.log(this.matched);
+    const interVal = setInterval(() => {
+      const invalidNum: any = []
+      this.rendomArray.forEach(array => {
+        if (array.find((arr: any) => !arr.isSelected)) {
+          invalidNum.push(1)
         }
-      }))
-      }, 300);
-      console.log(this.data);
+      })
+      if (invalidNum.length) {
+        this.rendomNumber = this.getRandomNumber();
+        this.rendomArray.map(((res, indexI) => {
+          if (res.find((res: { number: any; }) => res.number === this.rendomNumber)) {
+            let index = res.findIndex((res: { number: any; }) => res.number === this.rendomNumber);
+            res[index].isSelected = true;
+          }
+        }))
+      } else {
+        console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
+        clearInterval(interVal)
+        this.array();
+      }
+    }, 10);
   }
 
   refresh() {
     this.array();
-    this.matched = [];
     if (this.data) {
       clearInterval(this.data);
     }
