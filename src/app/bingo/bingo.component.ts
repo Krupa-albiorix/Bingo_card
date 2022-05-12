@@ -27,6 +27,7 @@ export class BingoComponent implements OnInit {
           isSelected: false
         };
       }
+      console.log('this.rendomArray: ', this.rendomArray);
     }
   }
 
@@ -42,8 +43,8 @@ export class BingoComponent implements OnInit {
         this.rendomNumber = this.getRandomNumber();
         this.rendomArray.map(((res, indexI) => {
           if (res.find((res: { number: any; }) => res.number === this.rendomNumber)) {
-            let index = res.findIndex((res: { number: any; }) => res.number === this.rendomNumber);
-            res[index].isSelected = true;
+            let records = res.filter((res: { number: any; }) => res.number === this.rendomNumber);
+            res[records].isSelected = true;
           }
         }))
       } else {
@@ -63,6 +64,7 @@ export class BingoComponent implements OnInit {
 
   getRandomNumber() {
     return Math.floor(Math.random() * 99);
+
   };
 
 }
