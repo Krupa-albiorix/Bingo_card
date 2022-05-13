@@ -6,19 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bingo.component.scss']
 })
 export class BingoComponent implements OnInit {
-
-  public i: number | undefined;
   rendomNumber!: any;
-  data!: any;
+  bingoInterval: any;
   public rendomArray: any[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.array();
+    this.generateBingoArray();
   }
 
-  array() {
+  generateBingoArray() {
     for (var i = 0; i < 5; i++) {
       this.rendomArray[i] = [];
       for (var j = 0; j < 5; j++) {
@@ -27,12 +25,11 @@ export class BingoComponent implements OnInit {
           isSelected: false
         };
       }
-      console.log('this.rendomArray: ', this.rendomArray);
     }
   }
 
   start() {
-    const interVal = setInterval(() => {
+    this.bingoInterval = setInterval(() => {
       const invalidNum: any = []
       this.rendomArray.forEach(array => {
         if (array.find((arr: any) => !arr.isSelected)) {
@@ -41,30 +38,33 @@ export class BingoComponent implements OnInit {
       })
       if (invalidNum.length) {
         this.rendomNumber = this.getRandomNumber();
-        this.rendomArray.map(((res, indexI) => {
-          if (res.find((res: { number: any; }) => res.number === this.rendomNumber)) {
-            let records = res.filter((res: { number: any; }) => res.number === this.rendomNumber);
-            res[records].isSelected = true;
+        this.rendomArray.map(((randomElement, indexI) => {
+          if (randomElement.find((res: { number: any; }) => res.number === this.rendomNumber)) {
+            randomElement.map((element: any) => {
+              if (element.number === this.rendomNumber) {
+                element.isSelected = true;
+              }
+            })
           }
         }))
       } else {
         console.log('BINGO');
-        clearInterval(interVal)
-        this.array();
+        clearInterval(this.bingoInterval)
+        this.generateBingoArray();
+        this.rendomNumber = null
       }
-    }, 1000);
+    }, 500);
   }
 
   refresh() {
-    this.array();
-    if (this.data) {
-      clearInterval(this.data);
+    this.generateBingoArray();
+    if (this.bingoInterval) {
+      clearInterval(this.bingoInterval);
     }
   }
 
   getRandomNumber() {
     return Math.floor(Math.random() * 99);
-
   };
 
 }

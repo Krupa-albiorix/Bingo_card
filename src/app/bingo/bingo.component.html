@@ -2,7 +2,7 @@
     <div class="container">
         <div class="title">Bingo Card</div>
 
-            <div *ngIf="refresh">{{rendomNumber}}</div>
+            <div *ngIf="rendomNumber">{{rendomNumber}}</div>
 
             <table>
                 <tr *ngFor="let array of rendomArray; let i = index">
